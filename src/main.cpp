@@ -10,15 +10,15 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     KAboutData aboutData(
-        QStringLiteral("kstore"),
-        i18n("KStore"),
-        QStringLiteral("1.0.0"),
-        i18n("A simple TV app store for Plasma Bigscreen."),
+        QStringLiteral("okami"),
+        i18n("Okami"),
+        QStringLiteral("3.5.7"),
+        i18n("KibaOS App Store."),
         KAboutLicense::Custom,
-        i18n("(c) 2026 WolfTech Innovations")
+        i18n("(c) 2026 Kiba Labs, LLC")
     );
     aboutData.setLicenseText(i18n("MIT License"));
-    aboutData.addAuthor(i18n("WolfTech Innovations"));
+    aboutData.addAuthor(i18n("Kiba Labs, LLC"));
     KAboutData::setApplicationData(aboutData);
 
     KStoreBackend backend;

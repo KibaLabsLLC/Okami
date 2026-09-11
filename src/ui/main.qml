@@ -7,7 +7,7 @@ Kirigami.ApplicationWindow {
     id: root
     width: 1280
     height: 720
-    title: "KStore - WolfTech Innovations"
+    title: "Okami"
 
     readonly property color bgBase:      "#0d0d0f"
     readonly property color bgSurface:   "#18181c"
@@ -32,7 +32,7 @@ Kirigami.ApplicationWindow {
     background: Rectangle { color: root.bgBase }
 
     globalDrawer: Kirigami.GlobalDrawer {
-        title: "KStore"
+        title: "Okami"
         titleIcon: "applications-all"
         modal: false
         width: Kirigami.Units.gridUnit * 14
@@ -40,7 +40,7 @@ Kirigami.ApplicationWindow {
 
         actions: [
             Kirigami.Action {
-                text: "Streaming"
+                text: "Streaming"Okami
                 icon.name: "video-display"
                 onTriggered: {
                     backend.fetchApps("streaming")
@@ -209,14 +209,14 @@ Kirigami.ApplicationWindow {
     Component {
         id: aboutPage
         Kirigami.AboutPage {
-            title: "About KStore"
+            title: "About Okami"
             aboutData: {
-                "displayName": "KStore",
-                "productName": "KStore",
-                "version": "1.1.0",
-                "description": "Premium TV app store by WolfTech Innovations.\nNative experience for Android apps on Plasma Bigscreen.",
-                "copyrightStatement": "Copyright (c) 2026 WolfTech Innovations",
-                "authors": [{ "name": "WolfTech Innovations" }]
+                "displayName": "Okami",
+                "productName": "Okami",
+                "version": "3.5.7",
+                "description": "KibaOS App store",
+                "copyrightStatement": "Copyright (c) 2026 Kiba Labs, LLC",
+                "authors": [{ "name": "Kiba Labs, LLC" }]
             }
         }
     }

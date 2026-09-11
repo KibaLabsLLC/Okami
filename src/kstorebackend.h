@@ -1,68 +1,66 @@
-#ifndef KSTOREBACKEND_H
-#define KSTOREBACKEND_H
+#pragma once
 
 #include <QObject>
-#include <QString>
-#include <QList>
+#include <QVariantList>
 #include <QVariantMap>
 #include <QStringList>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
+
+class QNetworkAccessManager;
+class QNetworkReply;
 
 class KStoreBackend : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QVariantList apps READ apps NOTIFY appsChanged)
-    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
-    Q_PROPERTY(QVariantMap installationProgress READ installationProgress NOTIFY installationProgressChanged)
+    Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
     Q_PROPERTY(QStringList installedApps READ installedApps NOTIFY installedAppsChanged)
+    Q_PROPERTY(QVariantMap installationProgress READ installationProgress NOTIFY installationProgressChanged)
 
 public:
     explicit KStoreBackend(QObject *parent = nullptr);
 
     QVariantList apps() const;
     bool loading() const { return m_loading; }
-    QVariantMap installationProgress() const { return m_installationProgress; }
+    void setLoading(bool loading);
     QStringList installedApps() const { return m_installedApps; }
+    QVariantMap installationProgress() const { return m_installationProgress; }
 
-    Q_INVOKABLE void fetchApps(const QString &query = "streaming");
-    Q_INVOKABLE void installApp(const QString &packageId, const QString &appName, const QString &iconUrl);
-    Q_INVOKABLE void openApp(const QString &packageId);
-    Q_INVOKABLE void updateInstalledApps();
-    Q_INVOKABLE void hideWaydroidDesktops();
+public slots:
+    // category is one of: discover, productivity, development, multimedia,
+    // games, installed — or any free-text search term
+    void fetchApps(const QString &category);
+    void filterApps(const QString &text);
+
+    void installApp(const QString &packageId, const QString &appName, const QString &iconUrl);
+    void uninstallApp(const QString &packageId);
+    void openApp(const QString &packageId);
+    void updateInstalledApps();
 
 signals:
     void appsChanged();
     void loadingChanged();
+    void installedAppsChanged();
+    void installationProgressChanged();
     void installationStarted(const QString &packageId);
     void installationFinished(const QString &packageId, bool success, const QString &message);
-    void downloadProgress(const QString &packageId, qint64 bytesReceived, qint64 bytesTotal);
-    void installationProgressChanged();
-    void installedAppsChanged();
 
 private slots:
-    void onAppDetailsFinished();
-    void onDownloadFinished();
-    void onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void onIconDownloadFinished();
+    void onIdListReplyFinished();
+    void onAppstreamReplyFinished();
 
 private:
-    QVariantList m_apps;
-    bool m_loading = false;
-    QVariantMap m_installationProgress;
-    QStringList m_installedApps;
+    void searchApps(const QString &query);
+    void fetchAppstream(const QString &appId);
+    void setAppProgress(const QString &packageId, double progress, const QString &status);
+
     QNetworkAccessManager *m_network;
 
-    void setLoading(bool loading);
-    void downloadAPK(const QString &packageId, const QString &url);
-    void downloadIcon(const QString &packageId, const QString &url);
-    void createDesktopFile(const QString &packageId, const QString &name, const QString &iconPath);
+    QVariantList m_apps;     // apps currently shown (post client-side filter)
+    QVariantList m_allApps;  // full unfiltered result of the last fetchApps()
+    bool m_loading = false;
 
-    bool m_waydroidLaunched = false;
-    QString waydroidContainerIp() const;
-    void ensureWaydroidStarted();
-    void tryAdbInstall(const QString &packageId, const QString &apkPath, int attempt);
-    void setAppProgress(const QString &packageId, double progress, const QString &status);
+    QStringList m_installedApps;
+    QVariantMap m_installationProgress;
+
+    int m_pendingAppstreamRequests = 0;
 };
-
-#endif // KSTOREBACKEND_H

@@ -1,6 +1,6 @@
 # Okami
 
-A simple, modern app store for Linux — built on Kirigami/QtQuick, backed by [Flathub](https://flathub.org).
+A simple, modern app store for KibaOS — built on Kirigami/QtQuick, backed by [Flathub](https://flathub.org).
 
 Okami browses and installs apps straight from Flathub using its public JSON API, and hands off the actual install/uninstall/launch work to the `flatpak` CLI. No scraping, no bundled runtime, no background container — just a thin, native front end over tooling your system already has.
 

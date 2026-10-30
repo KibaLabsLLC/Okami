@@ -6,12 +6,14 @@ Okami browses and installs apps straight from Flathub using its public JSON API,
 
 ## Features
 
-- Browse **Discover**, **Productivity**, **Development**, **Multimedia**, and **Games** categories
+- Browse **All Apps**, **Discover**, **Productivity**, **Development**, **Multimedia**, and **Games** categories
 - Search apps by name, filtered instantly against the currently loaded category
+- Featured spotlight hero banner for top apps
+- App Details overlay modal sheet with rich metadata and one-click launch/uninstall controls
 - One-click install with live progress
 - **Installed** view backed directly by `flatpak list`
 - Launch installed apps straight from the store
-- Clean, rounded, light UI with soft shadows and a single blue accent
+- Modern, clean, rounded UI design with soft shadows and refined glassmorphism styling
 
 ## Requirements
 

@@ -26,7 +26,7 @@ public:
     QVariantMap installationProgress() const { return m_installationProgress; }
 
 public slots:
-    // category is one of: discover, productivity, development, multimedia,
+    // category is one of: all, discover, productivity, development, multimedia,
     // games, installed — or any free-text search term
     void fetchApps(const QString &category);
     void filterApps(const QString &text);

@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         app.exit(0);
     });
 
-    backend.fetchApps("streaming");
+    backend.fetchApps("all");
 
     QTimer::singleShot(15000, &app, [&]() {
         qDebug() << "Test Timed Out";

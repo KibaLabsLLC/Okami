@@ -16,6 +16,7 @@ namespace {
 // actually understands well.
 QString categoryToSearchTerm(const QString &category)
 {
+    if (category.compare("all", Qt::CaseInsensitive) == 0) return "";
     if (category.compare("productivity", Qt::CaseInsensitive) == 0) return "office productivity";
     if (category.compare("development", Qt::CaseInsensitive) == 0) return "developer tools";
     if (category.compare("multimedia", Qt::CaseInsensitive) == 0) return "audio video";
